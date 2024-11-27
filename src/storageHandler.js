@@ -4,6 +4,10 @@ const storage = ( function() {
         localStorage.setItem(project.name, JSON.stringify(project));
     }
 
+    const getProjectByName = (name) => {
+        return JSON.parse(localStorage.getItem(name)) ;
+    }
+
     const getProjects= () => {
         let projects = [];
         if(!!localStorage.length) {
@@ -25,11 +29,17 @@ const storage = ( function() {
         }
     }
 
+    const removeProject = (projectName) => {
+        localStorage.removeItem(projectName);
+    }
+
 
     return {
         storeAProject,
+        getProjectByName,
         getProjects,
-        getTodosList
+        getTodosList,
+        removeProject
     }
 
 })();
