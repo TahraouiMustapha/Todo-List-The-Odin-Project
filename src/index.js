@@ -1,8 +1,13 @@
 import "./style.css";
-import { createTodos } from "./Todos.js";
-import { createProject } from "./ProjectClass.js";
+import { mainHandler } from "./mainHandler.js";
 import { storage } from "./storageHandler.js";
-import { format } from "date-fns";
+
+console.log('projects\n')
+const projects = storage.getProjects();
+console.log(projects)
+console.log('todos\n')
+console.log(storage.getTodosList(projects[0].name));
+
 
 
 
