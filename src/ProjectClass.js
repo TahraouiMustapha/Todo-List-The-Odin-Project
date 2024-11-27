@@ -11,8 +11,6 @@ ProjectClass.prototype.addTodos =  function (todos){
 }  
 
 
-
-
 const createProject = ( name ) => {
     return new ProjectClass(name);
 }
