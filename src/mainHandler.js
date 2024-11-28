@@ -38,11 +38,23 @@ const mainHandler = (() => {
         storage.storeAProject(myProject);
     }
 
+    const deleteProject = (projectName) => {
+        storage.removeProject(projectName);
+    }
+
+    const deleteTodos = (projectName, todosindex) => {
+        const myProject = storage.getProjectByName(projectName);
+        myProject.deleteTodos(todosindex);
+        storage.storeAProject(myProject);
+    }
+
     return {
         addNewProject,
         addNewTodos,
         updateProjectName,
         updateTodos,
+        deleteProject, 
+        deleteTodos
     }
 })();
 
