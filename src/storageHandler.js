@@ -1,3 +1,5 @@
+import { createProject } from "./ProjectClass.js";
+
 
 const storage = ( function() {
     const storeAProject = (project) => {
@@ -5,7 +7,11 @@ const storage = ( function() {
     }
 
     const getProjectByName = (name) => {
-        return JSON.parse(localStorage.getItem(name)) ;
+        const plainObjOfProject = JSON.parse(localStorage.getItem(name)) ;
+        if(plainObjOfProject) {
+            //when i retieve data from localStorage i convert them to instance of ProjectClass
+            return Object.assign(createProject(), plainObjOfProject);
+        }
     }
 
     const getProjects= () => {

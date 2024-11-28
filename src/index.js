@@ -10,5 +10,3 @@ console.log(storage.getTodosList(projects[0].name));
 
 
 
-
-

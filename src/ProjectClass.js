@@ -4,12 +4,11 @@ class ProjectClass {
         this.name = name;
         this.todosList = [];
     }
+
+    addTodos (todos) {
+        this.todosList.push(todos);
+    }
 }
-
-ProjectClass.prototype.addTodos =  function (todos){
-    this.todosList.push(todos);
-}  
-
 
 const createProject = ( name ) => {
     return new ProjectClass(name);
