@@ -48,13 +48,21 @@ const mainHandler = (() => {
         storage.storeAProject(myProject);
     }
 
+    const toggleTodosAchievement = (projectName, index) => {
+        const myProject = storage.getProjectByName(projectName);
+        const todosList = myProject.todosList;
+        todosList[index].toggleAchievement();
+        storage.storeAProject(myProject);
+    }
+
     return {
         addNewProject,
         addNewTodos,
         updateProjectName,
         updateTodos,
         deleteProject, 
-        deleteTodos
+        deleteTodos,
+        toggleTodosAchievement
     }
 })();
 

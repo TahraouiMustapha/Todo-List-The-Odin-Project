@@ -10,6 +10,5 @@ console.log('todos\n')
 console.log(storage.getTodosList(projects[0].name));
 
 
-const newTodos = createTodos('tit', 'des', 'daate', 'piori');
 
 

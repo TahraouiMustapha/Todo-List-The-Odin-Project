@@ -1,4 +1,5 @@
 import { createProject } from "./ProjectClass.js";
+import { createTodos } from "./Todos.js";
 
 
 const storage = ( function() {
@@ -9,8 +10,16 @@ const storage = ( function() {
     const getProjectByName = (name) => {
         const plainObjOfProject = JSON.parse(localStorage.getItem(name)) ;
         if(plainObjOfProject) {
-            //when i retieve data from localStorage i convert them to instance of ProjectClass
-            return Object.assign(createProject(), plainObjOfProject);
+            //when i retieve data Project from localStorage 
+            // i convert them to instance of ProjectClass
+            // convert each todos to instance of todosClass
+            const myProject = Object.assign(createProject(), plainObjOfProject);
+            for (let index in myProject.todosList) {
+                myProject.todosList[index] = Object.assign(
+                    createTodos(), myProject.todosList[index]
+                ) 
+            }
+            return myProject;
         }
     }
 
