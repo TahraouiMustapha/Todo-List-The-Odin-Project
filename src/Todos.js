@@ -5,6 +5,11 @@ class Todos {
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
+        this.achievement = false;
+    }
+
+    toggleAchievement() {
+        this.achievement = !this.achievement;
     }
 }
 
