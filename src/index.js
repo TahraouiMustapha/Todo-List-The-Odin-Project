@@ -1,7 +1,7 @@
 import "./style.css";
 import { mainHandler } from "./mainHandler.js";
 import { storage } from "./storageHandler.js";
-import { createTodos } from "./Todos.js";
+
 
 console.log('projects\n')
 const projects = storage.getProjects();
