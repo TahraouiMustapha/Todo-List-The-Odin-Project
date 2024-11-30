@@ -15,6 +15,7 @@ body {
 }
 
 header {
+    flex-shrink: 0;
     color: #fff;
     height: 64px;
     display: flex;
@@ -38,7 +39,7 @@ header {
 }
 
 .main {
-    flex: 1;
+    flex-grow: 1;
     display: flex;
 }
 
@@ -46,20 +47,23 @@ header {
     --icon-widht: 24px;
     --font-size: 1.1em;
     --font-weight: 400;
+    --left-padding: 16px;
+    --bottom-line: 0.5px solid #000;
     width: 300px;
-    padding: 16px 16px ;
+    padding: 16px var(--left-padding) ;
     display: grid;
-    grid-template-rows: 1fr 1fr 64px;
+    grid-template-rows: 300px 1fr 64px;
 }
 
 .task-classifications {
     display: grid;
 }
 
-.task-classifications > div {
+.task-classifications > div ,
+.projects .projects-list > div{
     font-size: var(--font-size);
     font-weight: 500;
-    border: 0.5px solid #000;
+    border: 0.5px solid #484747;
     margin: 6px 6px; 
     display: flex;
     gap: 12px;
@@ -73,10 +77,49 @@ header {
     width: var(--icon-widht);
 }
 
+.left .projects {
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+}
 
+.projects .head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    padding-bottom: 8px;
+    padding-right: var(--left-padding);
+    height: 36px;
+    border-bottom: var(--bottom-line);
+}
 
-.main .right {
-    flex: 1;
+.head .title {
+    font-size: calc(var(--font-size) + 6px);
+}
+
+.head button {
+    padding: 4px 12px;
+    border: none;
+    font-size: 16px;
+    font-weight: calc(var(--font-weight) * 1.5);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.projects-list {
+    margin : 12px 0;
+    display: grid;
+    grid-auto-rows: 58px;
+}
+
+.projects-list > div {
+    justify-content: space-between;
+}
+
+.projects-list .icons-container {
+    width: 64px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .left a {
@@ -87,19 +130,12 @@ header {
 
 .left .footer {
     text-align: center;
+    border-top: var(--bottom-line);
 }
 
-.left .footer::before {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 0.5px;
-    background-color: #484747;
-    margin-bottom: 8px;
+.main .right {
+    flex: 1;
 }
-
-/* for test */
-
 
 
 
