@@ -40,6 +40,7 @@ header {
 
 .main {
     flex-grow: 1;
+    max-height: calc(100% - 64px);
     display: flex;
 }
 
@@ -53,6 +54,7 @@ header {
     padding: 16px var(--left-padding) ;
     display: grid;
     grid-template-rows: 300px 1fr 64px;
+    overflow-y: auto;
 }
 
 .task-classifications {
