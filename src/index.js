@@ -6,6 +6,4 @@ import { domHandler } from "./domHandler.js";
 
 console.log('projects\n')
 domHandler.showProjects();
-
-
-
+domHandler.showTodosList('newNameValue')
