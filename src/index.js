@@ -1,12 +1,11 @@
 import "./style.css";
 import { mainHandler } from "./mainHandler.js";
-import { storage } from "./storageHandler.js";
 import { domHandler } from "./domHandler.js";
 import dialogBuilder from "./dialogBuilder.js";
 
 
 // console.log('projects\n')
-// domHandler.showProjects();
+domHandler.showProjects();
 // domHandler.showTodosList('newNameValue')
 
 

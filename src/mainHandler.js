@@ -1,15 +1,17 @@
 import { createTodos } from "./Todos.js";
 import { createProject } from "./ProjectClass.js";
 import { storage } from "./storageHandler.js";
-import { format } from "date-fns";
+import { domHandler } from "./domHandler.js";
 
 const mainHandler = (() => {
 
-    const addNewProject = ( projectName ) => {
+    const addNewProject = () => {
+        const titleInput = document.querySelector('dialog[open] input[name= \'todos_title\']');
         //if  the projectName does not exist 
-        if(!storage.getProjectByName(projectName)) {
-            const newProject = createProject(projectName);
+        if(!!titleInput &&!storage.getProjectByName(titleInput.value)) {
+            const newProject = createProject(titleInput.value);
             storage.storeAProject(newProject);
+            domHandler.showProjects();
         }
     }
 

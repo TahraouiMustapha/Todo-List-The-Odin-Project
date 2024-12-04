@@ -1,4 +1,6 @@
+import { mainHandler } from "./mainHandler.js";
 import closeIcon from "./assets/close.svg";
+import { add } from "date-fns";
 
 const dialogBuilder = (function() {
  
@@ -182,8 +184,9 @@ const dialogBuilder = (function() {
             const btnsDiv = document.createElement('div');
             btnsDiv.classList.add('btns-div');
             const cancelBtn = createCancelBtn();
+            const addBtn = createAddBtn();
             btnsDiv.appendChild(cancelBtn);
-            btnsDiv.appendChild(createAddBtn());
+            btnsDiv.appendChild(addBtn);
 
         form.appendChild(inputsDiv);                        
         form.appendChild(btnsDiv);                        
@@ -196,8 +199,9 @@ const dialogBuilder = (function() {
         document.body.appendChild(dialog);
         dialog.showModal();   
 
-        //add click event to close dialog
+        //add click event to buttons
         cancelBtn.addEventListener('click', () => dialog.close());
+        addBtn.addEventListener('click', () => mainHandler.addNewProject());
     }
 
 
