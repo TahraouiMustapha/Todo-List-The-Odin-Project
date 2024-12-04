@@ -42,6 +42,7 @@ const storage = ( function() {
         if(!!myProject) {
             return JSON.parse(myProject).todosList ;
         }
+        return null;
     }
 
     const removeProject = (projectName) => {

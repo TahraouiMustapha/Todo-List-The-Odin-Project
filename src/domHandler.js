@@ -24,12 +24,13 @@ const domHandler = (function () {
     const showTodosList = ( projectName ) => {
         const todosList = storage.getTodosList(projectName);
         const todosListContainer = document.querySelector('.todos-list');
-
-        todosList.forEach( (todos) => {
-            todosListContainer.appendChild(
-                domBuilder.createTodosDiv(todos)
-            )
-        });
+            if(!!todosList){
+                todosList.forEach( (todos) => {
+                    todosListContainer.appendChild(
+                        domBuilder.createTodosDiv(todos)
+                    )
+            });
+        } 
     }
 
     return {
