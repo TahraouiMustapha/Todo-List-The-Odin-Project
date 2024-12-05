@@ -45,6 +45,7 @@ const domHandler = (function () {
 })()
 
 const domBuilder = (function(){
+
     const createProjectDiv = ( projectName ) => {
         const myDiv = document.createElement('div');
             const p = document.createElement('p');
@@ -66,10 +67,7 @@ const domBuilder = (function(){
         //add event click to delete ,update btns
         updateBtn.addEventListener('click', () => dialogBuilder.updateProjectDialog(projectName) );
 
-        deleteBtn.addEventListener('click', () => {
-            mainHandler.deleteProject(projectName);
-            domHandler.showTodosList();
-        })
+        deleteBtn.addEventListener('click', () => dialogBuilder.deleteProjectDialog(projectName) )
         
         myDiv.addEventListener('click', () => {
             domHandler.showTodosList(projectName);

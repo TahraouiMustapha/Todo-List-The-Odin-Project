@@ -277,6 +277,10 @@ dialog[open] .head {
     color: #fff;
 }
 
+dialog[open] .head.delete {
+    background-color: #da4328;
+}
+
 dialog[open] .head .title {
     font-size: 1.6em;
     font-weight: 600;

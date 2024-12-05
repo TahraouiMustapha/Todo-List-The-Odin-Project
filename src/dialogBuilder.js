@@ -257,7 +257,7 @@ const dialogBuilder = (function() {
         cancelBtn.addEventListener('click', () => dialog.close());
         addBtn.addEventListener('click', () => mainHandler.addNewProject());
     }
-    // dialogs for projects functions
+
     const updateProjectDialog = (projectName) => {
         const dialog = document.createElement('dialog');
         const form = document.createElement('form');
@@ -292,7 +292,46 @@ const dialogBuilder = (function() {
         updateBtn.addEventListener('click', () => mainHandler.updateProjectName(projectName, getProjectInputs()));
     }
 
-    // dialogs for todos functions
+    const deleteProjectDialog = (projectName) => {
+        const dialog = document.createElement('dialog');
+        const form = document.createElement('form');
+
+            //create the div of inputs
+            const inputsDiv = document.createElement('div');
+            inputsDiv.classList.add('inputs-div');
+            
+                const repos = document.createTextNode(`Delete the project : `);
+                const strong = document.createElement('strong');
+                strong.textContent = projectName;
+                inputsDiv.appendChild(repos);
+                inputsDiv.appendChild(strong);
+
+            //create div of btns    
+            const btnsDiv = document.createElement('div');
+            btnsDiv.classList.add('btns-div');
+            const cancelBtn = createCancelBtn();
+            const deleteBtn = createAddBtn('Delete');
+            btnsDiv.appendChild(cancelBtn);
+            btnsDiv.appendChild(deleteBtn);
+
+        form.appendChild(inputsDiv);                        
+        form.appendChild(btnsDiv);                        
+
+
+        //insert head div
+        const myHead = createHead('Delete Project');
+        myHead.classList.add('delete');
+        dialog.appendChild(myHead);
+        dialog.appendChild(form);
+
+        document.body.appendChild(dialog);
+        dialog.showModal();   
+
+        //add click event to buttons
+        cancelBtn.addEventListener('click', () => dialog.close());
+        deleteBtn.addEventListener('click', () => mainHandler.deleteProject(projectName));
+    }
+
     const updateTodosDialog = (todosObj, index) => {
         const dialog = document.createElement('dialog');
         const form = document.createElement('form');
@@ -371,12 +410,15 @@ const dialogBuilder = (function() {
     }
 
 
+
+
     return {
         addNewProjectDialog,
         addNewTodosDialog,
         updateProjectDialog,
         updateTodosDialog,
-        todosInfoDialog
+        todosInfoDialog,
+        deleteProjectDialog
     }
 
 })(); 
