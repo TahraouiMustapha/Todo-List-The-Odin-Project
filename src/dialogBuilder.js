@@ -29,13 +29,14 @@ const dialogBuilder = (function() {
         return myDiv;
     }
 
-    const createTitleInput = () => {
+    const createTitleInput = (title = '') => {
         const inputContainer = document.createElement('p');
             const label = document.createElement('label');
             label.setAttribute('for', 'title');
             label.textContent = 'Title';
 
             const input = document.createElement('input');
+            input.value = title;
             input.setAttribute('type', 'text');
             input.setAttribute('id', 'title');
             input.setAttribute('name', 'todos_title');
@@ -49,13 +50,14 @@ const dialogBuilder = (function() {
         return inputContainer;
     }
 
-    const createDescInput = () => {
+    const createDescInput = (desc = '') => {
         const inputContainer = document.createElement('p');
             const label = document.createElement('label');
             label.setAttribute('for', 'desc');
             label.textContent = 'Description';
 
             const input = document.createElement('textarea');
+            input.value = desc;
             input.setAttribute('id', 'desc');
             input.setAttribute('name', 'todos_desc');
             input.setAttribute('placeholder', 'Description');
@@ -68,13 +70,14 @@ const dialogBuilder = (function() {
         return inputContainer;        
     }
  
-    const createDueDateInput = () => {
+    const createDueDateInput = (date = '') => {
         const inputContainer = document.createElement('p');
             const label = document.createElement('label');
             label.setAttribute('for', 'dueDate');
             label.textContent = 'Due Date';
 
             const input = document.createElement('input');
+            input.value = date; 
             input.setAttribute('type', 'date');
             input.setAttribute('id', 'dueDate');
             input.setAttribute('name', 'todos_dueDate');
@@ -94,7 +97,7 @@ const dialogBuilder = (function() {
         return opt;
     }
 
-    const createPriorityInput = () => {
+    const createPriorityInput = (selectedValue = '') => {
         const inputContainer = document.createElement('p');
             const label = document.createElement('label');
             label.setAttribute('for', 'priority');
@@ -107,12 +110,21 @@ const dialogBuilder = (function() {
             const firstOpt = document.createElement('option');
             firstOpt.textContent = 'How much important to you?';
             firstOpt.setAttribute('disabled', 'true');
-            firstOpt.setAttribute('selected', 'true');
             firstOpt.setAttribute('value', '');
             select.appendChild(firstOpt);
-            select.appendChild(createOption('notImportant', 'Not Important'));
-            select.appendChild(createOption('aBitImportant', 'A bit Important'));
-            select.appendChild(createOption('veryImportant', 'Very Important'));
+            const options = [   
+                            createOption('notImportant', 'Not Important'),
+                            createOption('aBitImportant', 'A bit Important'),
+                            createOption('veryImportant', 'Very Important')
+                        ];
+
+            options.forEach((opt) => select.appendChild(opt));
+            if(!selectedValue) {
+                firstOpt.setAttribute('selected', 'true');
+            } else {
+                const optSelected = options.find((opt) => opt.value == selectedValue);
+                optSelected.setAttribute('selected', 'true');
+            }            
 
 
 
@@ -244,11 +256,43 @@ const dialogBuilder = (function() {
     }
 
 
+    const todosInfoDialog = (todosObj) => {
+        const dialog = document.createElement('dialog');
+        const form = document.createElement('form');
+
+            //create the div of inputs
+            const inputsDiv = document.createElement('div');
+            inputsDiv.classList.add('inputs-div');
+                inputsDiv.appendChild(createTitleInput(todosObj.title))
+                inputsDiv.appendChild(createDescInput(todosObj.description));
+                inputsDiv.appendChild(createDueDateInput(todosObj.dueDate));
+                inputsDiv.appendChild(createPriorityInput(todosObj.priority));
+            //create div of btns    
+            const btnsDiv = document.createElement('div');
+            btnsDiv.classList.add('btns-div');
+            const cancelBtn = createCancelBtn();
+            btnsDiv.appendChild(cancelBtn);
+
+        form.appendChild(inputsDiv);                        
+        form.appendChild(btnsDiv);                        
+
+
+        //insert head div
+        dialog.appendChild(createHead('Task Information'));
+        dialog.appendChild(form);
+
+        document.body.appendChild(dialog);
+        dialog.showModal();
+
+        //add click event to close dialog
+        cancelBtn.addEventListener('click', () => dialog.close());
+    }
 
 
     return {
         addNewProjectDialog,
-        addNewTodosDialog
+        addNewTodosDialog,
+        todosInfoDialog
     }
 
 })(); 

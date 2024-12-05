@@ -318,7 +318,8 @@ dialog[open] form p + p {
 }
 
 .inputs-div input,
-[name="todos_priority"] {
+[name="todos_priority"] , 
+textarea {
     height: 40px;
     padding: 0 12px;
 }

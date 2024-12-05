@@ -4,6 +4,7 @@ import updateIcon from "./assets/update.svg";
 import deleteIcon from "./assets/delete.svg";
 import doneIcon from "./assets/check.svg";
 import infoIcon from "./assets/information.svg";
+import dialogBuilder from "./dialogBuilder.js";
 
 const domHandler = (function () {
 
@@ -99,17 +100,22 @@ const domBuilder = (function(){
 
             rightDiv.appendChild(date);   
             rightDiv.appendChild( createIconDiv(updateIcon) );     
-            rightDiv.appendChild( createIconDiv(deleteIcon) );     
-            rightDiv.appendChild( createIconDiv(infoIcon)   );     
+            rightDiv.appendChild( createIconDiv(deleteIcon) );    
+            const infoBtn =  createIconDiv(infoIcon) ;
+            rightDiv.appendChild( infoBtn );     
 
 
         myDiv.appendChild(leftDiv);    
         myDiv.appendChild(rightDiv); 
+
+        // add click event to update, see, delete todos
+        infoBtn.addEventListener('click', () => dialogBuilder.todosInfoDialog(todosObj));
         
         // add click event to toggle achievement of task
         leftDiv.addEventListener('click', (e) => {
             mainHandler.toggleTodosAchievement(projectObj, e.currentTarget.dataset.index) 
         }); 
+
         return myDiv;
     }
 
