@@ -1,4 +1,5 @@
 import { storage } from "./storageHandler.js";
+import { mainHandler } from "./mainHandler.js";
 import updateIcon from "./assets/update.svg";
 import deleteIcon from "./assets/delete.svg";
 import doneIcon from "./assets/check.svg";
@@ -8,6 +9,7 @@ const domHandler = (function () {
 
     const showProjects = () => {
         const projectsListContainer = document.querySelector('.projects-list');
+        projectsListContainer.innerHTML = ''; 
         const projects = storage.getProjects();
         projects.forEach((project) => {
             projectsListContainer.appendChild(
@@ -24,6 +26,7 @@ const domHandler = (function () {
     const showTodosList = ( projectName ) => {
         const todosList = storage.getTodosList(projectName);
         const todosListContainer = document.querySelector('.todos-list');
+        todosListContainer.innerHTML = '';
             if(!!todosList){
                 todosList.forEach( (todos) => {
                     todosListContainer.appendChild(
@@ -33,10 +36,11 @@ const domHandler = (function () {
         } 
     }
 
+
     return {
         showProjects,
         showProjectName,
-        showTodosList
+        showTodosList,
     }
 })()
 
@@ -49,14 +53,25 @@ const domBuilder = (function(){
 
             const iconsContainer = document.createElement('div');
             iconsContainer.classList.add('icons-container');
-            iconsContainer.appendChild( createIconDiv(updateIcon) );
-            iconsContainer.appendChild( createIconDiv(deleteIcon) );
+            const updateBtn = createIconDiv(updateIcon);
+            const deleteBtn = createIconDiv(deleteIcon);
+            iconsContainer.appendChild( updateBtn );
+            iconsContainer.appendChild( deleteBtn );
 
 
 
         myDiv.appendChild(p);
         myDiv.appendChild(iconsContainer);
+
+        //add event click to delete ,update btns
+        deleteBtn.addEventListener('click', () => {
+            mainHandler.deleteProject(projectName);
+        })
         
+        myDiv.addEventListener('click', () => {
+            domHandler.showProjectName(projectName);
+            domHandler.showTodosList(projectName);
+        })
         return myDiv;
     }
 
@@ -100,7 +115,6 @@ const domBuilder = (function(){
         myDiv.appendChild(img);
         return myDiv;
     }
-
     return {
         createProjectDiv,
         createTodosDiv

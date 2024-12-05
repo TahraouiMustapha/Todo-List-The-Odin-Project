@@ -1,6 +1,7 @@
 import { mainHandler } from "./mainHandler.js";
 import closeIcon from "./assets/close.svg";
 import { add } from "date-fns";
+import { se } from "date-fns/locale";
 
 const dialogBuilder = (function() {
  
@@ -105,8 +106,9 @@ const dialogBuilder = (function() {
 
             const firstOpt = document.createElement('option');
             firstOpt.textContent = 'How much important to you?';
-            firstOpt.setAttribute('disbled', 'true');
+            firstOpt.setAttribute('disabled', 'true');
             firstOpt.setAttribute('selected', 'true');
+            firstOpt.setAttribute('value', '');
             select.appendChild(firstOpt);
             select.appendChild(createOption('notImportant', 'Not Important'));
             select.appendChild(createOption('aBitImportant', 'A bit Important'));
@@ -135,6 +137,32 @@ const dialogBuilder = (function() {
         return btn;
     }
 
+
+    const getTodosInputs = () => {
+        const title = document.querySelector('dialog[open] input[name="todos_title"]').value;
+        const desc = document.querySelector('dialog[open] textarea').value;
+        const dueDate = document.querySelector(' input[name="todos_dueDate"]').value;
+        const selected = document.querySelector('dialog[open] select').value;
+
+            
+        
+        return {
+            title, 
+            desc, 
+            dueDate, 
+            priority: selected,
+        }  
+    }
+
+    const checkInputs = () => {
+        const title = document.querySelector('input[name="todos_title"]').value;
+        const desc = document.querySelector('dialog[open] textarea').value;
+        const dueDate = document.querySelector('input[name="todos_dueDate"]').value;
+        const selected = document.querySelector('dialog[open] select').value;
+
+        return (!!title && !!desc && !!dueDate && !!selected);
+    }
+
     //functions that appears the dialogs
     const addNewTodosDialog = () => {
         const dialog = document.createElement('dialog');
@@ -152,8 +180,9 @@ const dialogBuilder = (function() {
             const btnsDiv = document.createElement('div');
             btnsDiv.classList.add('btns-div');
             const cancelBtn = createCancelBtn();
+            const addBtn = createAddBtn();
             btnsDiv.appendChild(cancelBtn);
-            btnsDiv.appendChild(createAddBtn());
+            btnsDiv.appendChild(addBtn);
 
         form.appendChild(inputsDiv);                        
         form.appendChild(btnsDiv);                        
@@ -168,6 +197,18 @@ const dialogBuilder = (function() {
 
         //add click event to close dialog
         cancelBtn.addEventListener('click', () => dialog.close());
+        addBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            if(checkInputs()) {
+                const obj = getTodosInputs();
+                const projectName = document.querySelector('.project-name').textContent;
+                mainHandler.addNewTodos(projectName, obj);
+                dialog.close();
+            }
+
+            
+        })
+
     }
 
     const addNewProjectDialog = () => {
@@ -203,6 +244,7 @@ const dialogBuilder = (function() {
         cancelBtn.addEventListener('click', () => dialog.close());
         addBtn.addEventListener('click', () => mainHandler.addNewProject());
     }
+
 
 
 

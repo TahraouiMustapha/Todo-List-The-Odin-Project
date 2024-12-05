@@ -17,9 +17,10 @@ const mainHandler = (() => {
 
     const addNewTodos = (projectName, obj) => {
         const myProject = storage.getProjectByName(projectName);
-        const newTodos = createTodos(obj.title, obj.desc, obj.date, obj.priority);
+        const newTodos = createTodos(obj.title, obj.desc, obj.dueDate, obj.priority);
         myProject.addTodos(newTodos);
         storage.storeAProject( myProject);
+        domHandler.showTodosList(projectName);
     }
 
     const updateProjectName = (currentName, newName) => {
@@ -42,6 +43,7 @@ const mainHandler = (() => {
 
     const deleteProject = (projectName) => {
         storage.removeProject(projectName);
+        domHandler.showProjects();
     }
 
     const deleteTodos = (projectName, todosindex) => {
