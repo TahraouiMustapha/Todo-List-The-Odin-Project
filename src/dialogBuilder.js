@@ -1,7 +1,6 @@
 import { mainHandler } from "./mainHandler.js";
 import closeIcon from "./assets/close.svg";
-import { add } from "date-fns";
-import { se } from "date-fns/locale";
+
 
 const dialogBuilder = (function() {
  
@@ -135,10 +134,10 @@ const dialogBuilder = (function() {
         return inputContainer;
     }
 
-    const createAddBtn = () => {
+    const createAddBtn = (txt = 'Add') => {
         const btn = document.createElement('button');
             btn.setAttribute('id', 'dialog-add-btn');
-            btn.textContent = 'Add';
+            btn.textContent = txt ;
         return btn;
     }
 
@@ -156,7 +155,7 @@ const dialogBuilder = (function() {
 
     const getTodosInputs = () => {
         const title = document.querySelector('dialog[open] input[name="todos_title"]').value;
-        const desc = document.querySelector('dialog[open] textarea').value;
+        const description = document.querySelector('dialog[open] textarea').value;
         const dueDate = document.querySelector(' input[name="todos_dueDate"]').value;
         const selected = document.querySelector('dialog[open] select').value;
 
@@ -164,7 +163,7 @@ const dialogBuilder = (function() {
         
         return {
             title, 
-            desc, 
+            description, 
             dueDate, 
             priority: selected,
         }  
@@ -273,7 +272,7 @@ const dialogBuilder = (function() {
             const btnsDiv = document.createElement('div');
             btnsDiv.classList.add('btns-div');
             const cancelBtn = createCancelBtn();
-            const updateBtn = createAddBtn();
+            const updateBtn = createAddBtn('Update');
             btnsDiv.appendChild(cancelBtn);
             btnsDiv.appendChild(updateBtn);
 
@@ -294,6 +293,51 @@ const dialogBuilder = (function() {
     }
 
     // dialogs for todos functions
+    const updateTodosDialog = (todosObj, index) => {
+        const dialog = document.createElement('dialog');
+        const form = document.createElement('form');
+        form.setAttribute('method', 'dialog');
+
+            //create the div of inputs
+            const inputsDiv = document.createElement('div');
+            inputsDiv.classList.add('inputs-div');
+                inputsDiv.appendChild(createTitleInput(todosObj.title))
+                inputsDiv.appendChild(createDescInput(todosObj.description));
+                inputsDiv.appendChild(createDueDateInput(todosObj.dueDate));
+                inputsDiv.appendChild(createPriorityInput(todosObj.priority));
+            //create div of btns    
+            const btnsDiv = document.createElement('div');
+            btnsDiv.classList.add('btns-div');
+            const cancelBtn = createCancelBtn();
+            const updateBtn = createAddBtn('Update');
+            btnsDiv.appendChild(cancelBtn);
+            btnsDiv.appendChild(updateBtn);
+
+        form.appendChild(inputsDiv);                        
+        form.appendChild(btnsDiv);                        
+
+
+        //insert head div
+        dialog.appendChild(createHead('Add Task'));
+        dialog.appendChild(form);
+
+        document.body.appendChild(dialog);
+        dialog.showModal();
+
+        //add click event to close dialog
+        cancelBtn.addEventListener('click', () => dialog.close());
+        updateBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            if(checkInputs()) {
+                const obj = getTodosInputs();
+                const projectName = document.querySelector('.project-name').textContent;
+                mainHandler.updateTodos(projectName, index, obj);
+                dialog.close();
+            }  
+        })
+
+    }
+
     const todosInfoDialog = (todosObj) => {
         const dialog = document.createElement('dialog');
         const form = document.createElement('form');
@@ -331,6 +375,7 @@ const dialogBuilder = (function() {
         addNewProjectDialog,
         addNewTodosDialog,
         updateProjectDialog,
+        updateTodosDialog,
         todosInfoDialog
     }
 

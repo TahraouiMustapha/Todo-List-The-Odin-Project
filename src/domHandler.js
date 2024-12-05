@@ -65,7 +65,7 @@ const domBuilder = (function(){
 
         //add event click to delete ,update btns
         updateBtn.addEventListener('click', () => dialogBuilder.updateProjectDialog(projectName) );
-        
+
         deleteBtn.addEventListener('click', () => {
             mainHandler.deleteProject(projectName);
             domHandler.showTodosList();
@@ -80,8 +80,9 @@ const domBuilder = (function(){
     const createTodosDiv = (projectObj, todosObj) => {
         const myDiv = document.createElement('div');
         myDiv.classList.add('todos');
+        const index = projectObj.todosList.indexOf(todosObj);
             const leftDiv = document.createElement('div');
-            leftDiv.dataset.index = projectObj.todosList.indexOf(todosObj);
+            leftDiv.dataset.index = index ;
             // to check achievement
             if(todosObj.achievement) leftDiv.classList.toggle('done');
                 const completedDiv = createIconDiv(doneIcon);
@@ -101,9 +102,10 @@ const domBuilder = (function(){
                 date.textContent = todosObj.dueDate;
 
             rightDiv.appendChild(date);   
-            rightDiv.appendChild( createIconDiv(updateIcon) );     
-            rightDiv.appendChild( createIconDiv(deleteIcon) );    
+            const updateBtn = createIconDiv(updateIcon);
             const infoBtn =  createIconDiv(infoIcon) ;
+            rightDiv.appendChild( updateBtn );     
+            rightDiv.appendChild( createIconDiv(deleteIcon) );    
             rightDiv.appendChild( infoBtn );     
 
 
@@ -111,6 +113,7 @@ const domBuilder = (function(){
         myDiv.appendChild(rightDiv); 
 
         // add click event to update, see, delete todos
+        updateBtn.addEventListener('click', () => dialogBuilder.updateTodosDialog(todosObj, index));
         infoBtn.addEventListener('click', () => dialogBuilder.todosInfoDialog(todosObj));
         
         // add click event to toggle achievement of task

@@ -36,12 +36,15 @@ const mainHandler = (() => {
         domHandler.showTodosList(newName);
     }
 
-    const updateTodos = (projectName, index, newTodos) => {
-        let myProject = storage.getProjectByName(projectName);
-        let myArray = myProject.todosList;
+    const updateTodos = (projectName, index, newTodosObj) => {
+        let newTodos = createTodos();
+        Object.assign(newTodos, newTodosObj);
+        const myProject = storage.getProjectByName(projectName);
+        const myArray = myProject.todosList;
         myArray.splice(index, 1, newTodos );
 
         storage.storeAProject(myProject);
+        domHandler.showTodosList(projectName);
     }
 
     const deleteProject = (projectName) => {
