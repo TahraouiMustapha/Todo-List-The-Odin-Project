@@ -220,7 +220,18 @@ header {
     align-items: center;
     justify-content: center;
     margin-right: 8px;
-    background-color: #25b02c;
+}
+/* style for task's priority */
+.notImportant {
+    background-color: #ADD8E6;
+}
+
+.aBitImportant {
+    background-color: #FFD700;
+}
+
+.veryImportant {
+    background-color: #da4328;
 }
 
 .achievement.icon img {

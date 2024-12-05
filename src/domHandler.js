@@ -83,6 +83,7 @@ const domBuilder = (function(){
             if(todosObj.achievement) leftDiv.classList.toggle('done');
                 const completedDiv = createIconDiv(doneIcon);
                 completedDiv.classList.add('achievement');
+                completedDiv.classList.add(todosObj.priority);
 
                 const title = document.createElement('p');
                 title.classList.add('title');
