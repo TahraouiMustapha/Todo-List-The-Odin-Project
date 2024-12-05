@@ -52,11 +52,11 @@ const mainHandler = (() => {
         storage.storeAProject(myProject);
     }
 
-    const toggleTodosAchievement = (projectName, index) => {
-        const myProject = storage.getProjectByName(projectName);
-        const todosList = myProject.todosList;
+    const toggleTodosAchievement = (projectObj, index) => {
+        const todosList = projectObj.todosList;
         todosList[index].toggleAchievement();
-        storage.storeAProject(myProject);
+        storage.storeAProject(projectObj);
+        domHandler.showTodosList(projectObj.name);
     }
 
     return {

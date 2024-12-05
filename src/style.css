@@ -212,7 +212,7 @@ header {
     align-items: center;
 }
 
-.completed {
+.achievement {
     width: 18px;
     height: 18px;
     border-radius: 50%;
@@ -223,8 +223,13 @@ header {
     background-color: #25b02c;
 }
 
-.completed.icon img {
+.achievement.icon img {
     width: 14px;
+}
+/* for completed tasks */
+.done {
+    text-decoration: line-through;
+    opacity: 0.25;
 }
 
 .todos .icon ,

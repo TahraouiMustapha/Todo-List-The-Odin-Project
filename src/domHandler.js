@@ -30,7 +30,7 @@ const domHandler = (function () {
             if(!!todosList){
                 todosList.forEach( (todos) => {
                     todosListContainer.appendChild(
-                        domBuilder.createTodosDiv(todos)
+                        domBuilder.createTodosDiv(myProject, todos)
                     )
             });
         } 
@@ -74,12 +74,15 @@ const domBuilder = (function(){
         return myDiv;
     }
 
-    const createTodosDiv = (todosObj) => {
+    const createTodosDiv = (projectObj, todosObj) => {
         const myDiv = document.createElement('div');
         myDiv.classList.add('todos');
             const leftDiv = document.createElement('div');
+            leftDiv.dataset.index = projectObj.todosList.indexOf(todosObj);
+            // to check achievement
+            if(todosObj.achievement) leftDiv.classList.toggle('done');
                 const completedDiv = createIconDiv(doneIcon);
-                completedDiv.classList.add('completed');
+                completedDiv.classList.add('achievement');
 
                 const title = document.createElement('p');
                 title.classList.add('title');
@@ -100,7 +103,12 @@ const domBuilder = (function(){
 
 
         myDiv.appendChild(leftDiv);    
-        myDiv.appendChild(rightDiv);    
+        myDiv.appendChild(rightDiv); 
+        
+        // add click event to toggle achievement of task
+        leftDiv.addEventListener('click', (e) => {
+            mainHandler.toggleTodosAchievement(projectObj, e.currentTarget.dataset.index) 
+        }); 
         return myDiv;
     }
 
