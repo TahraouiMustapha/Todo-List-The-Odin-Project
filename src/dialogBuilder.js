@@ -149,6 +149,10 @@ const dialogBuilder = (function() {
         return btn;
     }
 
+    const getProjectInputs = () => {
+        const title = document.querySelector('dialog[open] input[name="todos_title"]').value;
+        return title;
+    }
 
     const getTodosInputs = () => {
         const title = document.querySelector('dialog[open] input[name="todos_title"]').value;
@@ -175,7 +179,7 @@ const dialogBuilder = (function() {
         return (!!title && !!desc && !!dueDate && !!selected);
     }
 
-    //functions that appears the dialogs
+    // functions that appears the dialogs
     const addNewTodosDialog = () => {
         const dialog = document.createElement('dialog');
         const form = document.createElement('form');
@@ -254,8 +258,42 @@ const dialogBuilder = (function() {
         cancelBtn.addEventListener('click', () => dialog.close());
         addBtn.addEventListener('click', () => mainHandler.addNewProject());
     }
+    // dialogs for projects functions
+    const updateProjectDialog = (projectName) => {
+        const dialog = document.createElement('dialog');
+        const form = document.createElement('form');
+        form.setAttribute('method', 'dialog');
+
+            // create the div of inputs
+            const inputsDiv = document.createElement('div');
+            inputsDiv.classList.add('inputs-div');
+                inputsDiv.appendChild(createTitleInput(projectName))
+
+            // create div of btns    
+            const btnsDiv = document.createElement('div');
+            btnsDiv.classList.add('btns-div');
+            const cancelBtn = createCancelBtn();
+            const updateBtn = createAddBtn();
+            btnsDiv.appendChild(cancelBtn);
+            btnsDiv.appendChild(updateBtn);
+
+        form.appendChild(inputsDiv);                        
+        form.appendChild(btnsDiv);                        
 
 
+        // insert head div
+        dialog.appendChild(createHead('Update Project'));
+        dialog.appendChild(form);
+
+        document.body.appendChild(dialog);
+        dialog.showModal();   
+
+        // add click event to buttons
+        cancelBtn.addEventListener('click', () => dialog.close());
+        updateBtn.addEventListener('click', () => mainHandler.updateProjectName(projectName, getProjectInputs()));
+    }
+
+    // dialogs for todos functions
     const todosInfoDialog = (todosObj) => {
         const dialog = document.createElement('dialog');
         const form = document.createElement('form');
@@ -292,6 +330,7 @@ const dialogBuilder = (function() {
     return {
         addNewProjectDialog,
         addNewTodosDialog,
+        updateProjectDialog,
         todosInfoDialog
     }
 

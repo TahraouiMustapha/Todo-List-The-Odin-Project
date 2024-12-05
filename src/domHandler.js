@@ -64,6 +64,8 @@ const domBuilder = (function(){
         myDiv.appendChild(iconsContainer);
 
         //add event click to delete ,update btns
+        updateBtn.addEventListener('click', () => dialogBuilder.updateProjectDialog(projectName) );
+        
         deleteBtn.addEventListener('click', () => {
             mainHandler.deleteProject(projectName);
             domHandler.showTodosList();

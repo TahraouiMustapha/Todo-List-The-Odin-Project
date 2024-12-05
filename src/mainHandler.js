@@ -24,13 +24,16 @@ const mainHandler = (() => {
     }
 
     const updateProjectName = (currentName, newName) => {
-        //get Project
+        console.log(currentName, newName);
+        // get Project
         const p = storage.getProjectByName(currentName);
-        //remove the old one
+        // remove the old one
         storage.removeProject(currentName);
-        //change project name
+        // change project name
         p.name = newName;
         storage.storeAProject(p);
+        domHandler.showProjects();
+        domHandler.showTodosList(newName);
     }
 
     const updateTodos = (projectName, index, newTodos) => {
