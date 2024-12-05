@@ -18,13 +18,13 @@ const domHandler = (function () {
         })
     }
 
-    const showProjectName = ( projectName ) => {
-        const projectNameDiv = document.querySelector('.project-name');
-        projectNameDiv.textContent = projectName;
-    }
 
     const showTodosList = ( projectName ) => {
-        const todosList = storage.getTodosList(projectName);
+        const myProject = storage.getProjectByName(projectName);
+
+        const projectNameDiv = document.querySelector('.project-name');
+        projectNameDiv.textContent = myProject ? myProject.name : '';
+        const todosList = myProject ? myProject.todosList : [];
         const todosListContainer = document.querySelector('.todos-list');
         todosListContainer.innerHTML = '';
             if(!!todosList){
@@ -39,7 +39,6 @@ const domHandler = (function () {
 
     return {
         showProjects,
-        showProjectName,
         showTodosList,
     }
 })()
@@ -66,10 +65,10 @@ const domBuilder = (function(){
         //add event click to delete ,update btns
         deleteBtn.addEventListener('click', () => {
             mainHandler.deleteProject(projectName);
+            domHandler.showTodosList();
         })
         
         myDiv.addEventListener('click', () => {
-            domHandler.showProjectName(projectName);
             domHandler.showTodosList(projectName);
         })
         return myDiv;

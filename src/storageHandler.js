@@ -8,7 +8,13 @@ const storage = ( function() {
     }
 
     const getProjectByName = (name) => {
-        const plainObjOfProject = JSON.parse(localStorage.getItem(name)) ;
+        let plainObjOfProject;
+        if(name) {
+            plainObjOfProject = JSON.parse(localStorage.getItem(name)) ;
+        } else {
+            const firstKey = localStorage.key(0);
+            plainObjOfProject = JSON.parse(localStorage.getItem(firstKey)) ;
+        }
         if(plainObjOfProject) {
             //when i retieve data Project from localStorage 
             // i convert them to instance of ProjectClass
@@ -19,8 +25,10 @@ const storage = ( function() {
                     createTodos(), myProject.todosList[index]
                 ) 
             }
+            
             return myProject;
         }
+
     }
 
     const getProjects= () => {
@@ -38,7 +46,14 @@ const storage = ( function() {
     }
 
     const getTodosList = (projectName) => {
-        const myProject = localStorage.getItem(projectName);
+        let myProject;
+        if(!!projectName) {
+            myProject = localStorage.getItem(projectName);
+        } else {
+            const firstKey = localStorage.key(0);
+            myProject = localStorage.getItem(firstKey);
+        }
+
         if(!!myProject) {
             return JSON.parse(myProject).todosList ;
         }

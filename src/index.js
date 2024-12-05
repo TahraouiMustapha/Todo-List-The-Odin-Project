@@ -4,9 +4,8 @@ import { domHandler } from "./domHandler.js";
 import dialogBuilder from "./dialogBuilder.js";
 
 
-// console.log('projects\n')
 domHandler.showProjects();
-// domHandler.showTodosList('newNameValue')
+domHandler.showTodosList();
 
 
 //add click event to appear dialog of adding Project 

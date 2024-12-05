@@ -204,9 +204,7 @@ const dialogBuilder = (function() {
                 const projectName = document.querySelector('.project-name').textContent;
                 mainHandler.addNewTodos(projectName, obj);
                 dialog.close();
-            }
-
-            
+            }  
         })
 
     }
