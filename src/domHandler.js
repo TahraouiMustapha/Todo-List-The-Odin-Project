@@ -27,6 +27,7 @@ const domHandler = (function () {
         const projectNameDiv = document.querySelector('.project-name');
         projectNameDiv.textContent = myProject ? myProject.name : '';
         const todosList = myProject ? myProject.todosList : [];
+        changeTodosNumber(todosList.length);
         const todosListContainer = document.querySelector('.todos-list');
         todosListContainer.innerHTML = '';
             if(!!todosList){
@@ -41,8 +42,15 @@ const domHandler = (function () {
     const changeProjectsNumber = (length) => {
         const projectTitle = document.querySelector('.projects .head .title');
         projectTitle.innerHTML = '';
-        const repos = document.createTextNode(`Projects(${length})`);
+        const repos = document.createTextNode(`Projects (${length})`);
         projectTitle.appendChild(repos);
+    }
+
+    const changeTodosNumber = (length) => {
+        const todosTitle = document.querySelector('.todos-container .head .title');
+        todosTitle.innerHTML = '';
+        const repos = document.createTextNode(`Tasks (${length})`);
+        todosTitle.appendChild(repos);
     }
 
     return {
