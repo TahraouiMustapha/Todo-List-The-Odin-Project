@@ -13,6 +13,11 @@ allTodosBtn.addEventListener('click', ()=> {
     domHandler.showAllTodos();
 })
 
+const todayTodosBtn = document.querySelector('#todayTodosBtn');
+todayTodosBtn.addEventListener('click', ()=> {
+    domHandler.showTodayTodos();
+})
+
 // add click event to appear dialog of adding Project 
 const addNewProject = document.querySelector('#add-new-project-btn');
 addNewProject.addEventListener('click', () => {

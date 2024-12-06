@@ -5,6 +5,7 @@ import deleteIcon from "./assets/delete.svg";
 import doneIcon from "./assets/check.svg";
 import infoIcon from "./assets/information.svg";
 import dialogBuilder from "./dialogBuilder.js";
+import { isToday } from "date-fns";
 
 const domHandler = (function () {
 
@@ -52,6 +53,25 @@ const domHandler = (function () {
         
     }
 
+    const showTodayTodos = () => {
+        const projectNameDiv = document.querySelector('.project-name');
+        projectNameDiv.textContent = 'Today';
+
+        const projects = storage.getProjects();
+        const todosListContainer = document.querySelector('.todos-list');
+        todosListContainer.innerHTML = '';
+
+        projects.forEach((project) => {
+            let myProject = storage.getProjectByName(project.name);
+            let todosList = myProject ? myProject.todosList : [];
+            todosList.forEach((todos) => {
+                if (isToday(todos.dueDate)) {
+                    todosListContainer.appendChild(domBuilder.createTodosDiv(myProject, todos));
+                }
+            })
+        })            
+    }
+        
     const changeProjectsNumber = (length) => {
         const projectTitle = document.querySelector('.projects .head .title');
         projectTitle.innerHTML = '';
@@ -69,7 +89,8 @@ const domHandler = (function () {
     return {
         showProjects,
         showTodosList,
-        showAllTodos
+        showAllTodos,
+        showTodayTodos
     }
 })()
 
