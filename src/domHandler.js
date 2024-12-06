@@ -21,15 +21,15 @@ const domHandler = (function () {
     }
 
 
-    const showTodosList = ( projectName ) => {
+    const showTodosList = ( projectName, needToRemoveOldTasks = true ) => {
         const myProject = storage.getProjectByName(projectName);
 
         const projectNameDiv = document.querySelector('.project-name');
-        projectNameDiv.textContent = myProject ? myProject.name : '';
+        if (needToRemoveOldTasks) projectNameDiv.textContent = myProject ? myProject.name : '';
         const todosList = myProject ? myProject.todosList : [];
         changeTodosNumber(todosList.length);
         const todosListContainer = document.querySelector('.todos-list');
-        todosListContainer.innerHTML = '';
+        if (needToRemoveOldTasks) todosListContainer.innerHTML = '';
             if(!!todosList){
                 todosList.forEach( (todos) => {
                     todosListContainer.appendChild(
@@ -37,6 +37,19 @@ const domHandler = (function () {
                     )
             });
         } 
+    }
+
+// show all the todos using showTodosList func
+    const showAllTodos = () => {
+        const projectNameDiv = document.querySelector('.project-name');
+        projectNameDiv.textContent = 'ALL';
+        const projects = storage.getProjects();
+        const todosListContainer = document.querySelector('.todos-list');
+        todosListContainer.innerHTML = '';
+        projects.forEach((project) => {
+            showTodosList(project.name, false);
+        })
+        
     }
 
     const changeProjectsNumber = (length) => {
@@ -55,7 +68,8 @@ const domHandler = (function () {
 
     return {
         showProjects,
-        showTodosList
+        showTodosList,
+        showAllTodos
     }
 })()
 

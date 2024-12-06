@@ -7,14 +7,19 @@ import dialogBuilder from "./dialogBuilder.js";
 domHandler.showProjects();
 domHandler.showTodosList();
 
+// add click event to classification btns
+const allTodosBtn = document.querySelector('#allTodosBtn');
+allTodosBtn.addEventListener('click', ()=> {
+    domHandler.showAllTodos();
+})
 
-//add click event to appear dialog of adding Project 
+// add click event to appear dialog of adding Project 
 const addNewProject = document.querySelector('#add-new-project-btn');
 addNewProject.addEventListener('click', () => {
     dialogBuilder.addNewProjectDialog();
 })
 
-//add click event to appear dialog of adding Todos 
+// add click event to appear dialog of adding Todos 
 const addNewTodos = document.querySelector('#add-new-todos-btn');
 addNewTodos.addEventListener('click', () => {
     dialogBuilder.addNewTodosDialog();
