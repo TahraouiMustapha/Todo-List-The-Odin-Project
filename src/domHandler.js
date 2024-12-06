@@ -101,9 +101,10 @@ const domBuilder = (function(){
 
             rightDiv.appendChild(date);   
             const updateBtn = createIconDiv(updateIcon);
+            const deleteBtn = createIconDiv(deleteIcon);
             const infoBtn =  createIconDiv(infoIcon) ;
             rightDiv.appendChild( updateBtn );     
-            rightDiv.appendChild( createIconDiv(deleteIcon) );    
+            rightDiv.appendChild( deleteBtn );    
             rightDiv.appendChild( infoBtn );     
 
 
@@ -112,6 +113,7 @@ const domBuilder = (function(){
 
         // add click event to update, see, delete todos
         updateBtn.addEventListener('click', () => dialogBuilder.updateTodosDialog(todosObj, index));
+        deleteBtn.addEventListener('click', () =>  dialogBuilder.deleteTodosDialog(todosObj.title, projectObj.name, index));
         infoBtn.addEventListener('click', () => dialogBuilder.todosInfoDialog(todosObj));
         
         // add click event to toggle achievement of task

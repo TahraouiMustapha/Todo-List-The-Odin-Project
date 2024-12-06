@@ -56,6 +56,7 @@ const mainHandler = (() => {
         const myProject = storage.getProjectByName(projectName);
         myProject.deleteTodos(todosindex);
         storage.storeAProject(myProject);
+        domHandler.showTodosList(projectName);
     }
 
     const toggleTodosAchievement = (projectObj, index) => {
