@@ -17,7 +17,7 @@ const mainHandler = (() => {
 
     const addNewTodos = (projectName, obj) => {
         const myProject = storage.getProjectByName(projectName);
-        const newTodos = createTodos(obj.title, obj.desc, obj.dueDate, obj.priority);
+        const newTodos = createTodos(obj.title, obj.description, obj.dueDate, obj.priority);
         myProject.addTodos(newTodos);
         storage.storeAProject( myProject);
         domHandler.showTodosList(projectName);

@@ -1,5 +1,6 @@
 import { mainHandler } from "./mainHandler.js";
 import closeIcon from "./assets/close.svg";
+import { format } from "date-fns";
 
 
 const dialogBuilder = (function() {
@@ -156,7 +157,9 @@ const dialogBuilder = (function() {
     const getTodosInputs = () => {
         const title = document.querySelector('dialog[open] input[name="todos_title"]').value;
         const description = document.querySelector('dialog[open] textarea').value;
-        const dueDate = document.querySelector(' input[name="todos_dueDate"]').value;
+        const dateValue = document.querySelector(' input[name="todos_dueDate"]').value;
+        const dueDate = format(new Date(dateValue), "yyyy-MM-dd");
+        
         const selected = document.querySelector('dialog[open] select').value;
 
             
