@@ -329,7 +329,11 @@ const dialogBuilder = (function() {
 
         //add click event to buttons
         cancelBtn.addEventListener('click', () => dialog.close());
-        deleteBtn.addEventListener('click', () => mainHandler.deleteProject(projectName));
+        deleteBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            mainHandler.deleteProject(projectName);
+            dialog.close();
+        });
     }
 
     const updateTodosDialog = (todosObj, index) => {

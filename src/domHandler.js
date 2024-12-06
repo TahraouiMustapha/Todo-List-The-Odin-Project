@@ -12,6 +12,7 @@ const domHandler = (function () {
         const projectsListContainer = document.querySelector('.projects-list');
         projectsListContainer.innerHTML = ''; 
         const projects = storage.getProjects();
+        changeProjectsNumber(projects.length);
         projects.forEach((project) => {
             projectsListContainer.appendChild(
                 domBuilder.createProjectDiv(project.name)
@@ -37,10 +38,16 @@ const domHandler = (function () {
         } 
     }
 
+    const changeProjectsNumber = (length) => {
+        const projectTitle = document.querySelector('.projects .head .title');
+        projectTitle.innerHTML = '';
+        const repos = document.createTextNode(`Projects(${length})`);
+        projectTitle.appendChild(repos);
+    }
 
     return {
         showProjects,
-        showTodosList,
+        showTodosList
     }
 })()
 
