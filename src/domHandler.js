@@ -47,10 +47,12 @@ const domHandler = (function () {
         const projects = storage.getProjects();
         const todosListContainer = document.querySelector('.todos-list');
         todosListContainer.innerHTML = '';
+        let length = 0;
         projects.forEach((project) => {
+            length += project.todosList.length;
             showTodosList(project.name, false);
         })
-        
+        changeTodosNumber(length);
     }
 
     const showTodayTodos = () => {
@@ -61,15 +63,19 @@ const domHandler = (function () {
         const todosListContainer = document.querySelector('.todos-list');
         todosListContainer.innerHTML = '';
 
+        let length = 0;
         projects.forEach((project) => {
             let myProject = storage.getProjectByName(project.name);
             let todosList = myProject ? myProject.todosList : [];
             todosList.forEach((todos) => {
                 if (isToday(todos.dueDate)) {
+                    length += 1;
                     todosListContainer.appendChild(domBuilder.createTodosDiv(myProject, todos));
                 }
             })
-        })            
+        })  
+        
+        changeTodosNumber(length);
     }
 
     const showWeakTodos = () => {
@@ -79,17 +85,20 @@ const domHandler = (function () {
         const projects = storage.getProjects();
         const todosListContainer = document.querySelector('.todos-list');
         todosListContainer.innerHTML = '';
-
+        let length = 0;
         const currentDate = new Date();
         projects.forEach((project) => {
             let myProject = storage.getProjectByName(project.name);
             let todosList = myProject ? myProject.todosList : [];
             todosList.forEach((todos) => {
                 if (Math.abs(differenceInDays(currentDate, todos.dueDate)) <= 7) {
+                    length += 1;
                     todosListContainer.appendChild(domBuilder.createTodosDiv(myProject, todos));
                 }
             })
         })
+
+        changeTodosNumber(length);
     }
         
     const showImportantTodos = () => {
@@ -100,15 +109,19 @@ const domHandler = (function () {
         const todosListContainer = document.querySelector('.todos-list');
         todosListContainer.innerHTML = '';
 
+        let length = 0;
         projects.forEach((project) => {
             let myProject = storage.getProjectByName(project.name);
             let todosList = myProject ? myProject.todosList : [];
             todosList.forEach((todos) => {
                 if (todos.priority === "veryImportant") {
+                    length += 1;
                     todosListContainer.appendChild(domBuilder.createTodosDiv(myProject, todos));
                 }
             })
         })
+
+        changeTodosNumber(length);
     }
 
     const showCompletedTodos = () => {
@@ -119,15 +132,19 @@ const domHandler = (function () {
         const todosListContainer = document.querySelector('.todos-list');
         todosListContainer.innerHTML = '';
 
+        let length = 0;
         projects.forEach((project) => {
             let myProject = storage.getProjectByName(project.name);
             let todosList = myProject ? myProject.todosList : [];
             todosList.forEach((todos) => {
                 if (todos.achievement) {
+                    length += 1;
                     todosListContainer.appendChild(domBuilder.createTodosDiv(myProject, todos));
                 }
             })
         })
+
+        changeTodosNumber(length);
     } 
 
     const changeProjectsNumber = (length) => {
