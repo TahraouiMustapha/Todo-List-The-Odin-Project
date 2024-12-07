@@ -92,6 +92,25 @@ const domHandler = (function () {
         })
     }
         
+    const showImportantTodos = () => {
+        const projectNameDiv = document.querySelector('.project-name');
+        projectNameDiv.textContent = 'Important Tasks';
+
+        const projects = storage.getProjects();
+        const todosListContainer = document.querySelector('.todos-list');
+        todosListContainer.innerHTML = '';
+
+        projects.forEach((project) => {
+            let myProject = storage.getProjectByName(project.name);
+            let todosList = myProject ? myProject.todosList : [];
+            todosList.forEach((todos) => {
+                if (todos.priority === "veryImportant") {
+                    todosListContainer.appendChild(domBuilder.createTodosDiv(myProject, todos));
+                }
+            })
+        })
+    }
+
     const changeProjectsNumber = (length) => {
         const projectTitle = document.querySelector('.projects .head .title');
         projectTitle.innerHTML = '';
@@ -111,7 +130,8 @@ const domHandler = (function () {
         showTodosList,
         showAllTodos,
         showTodayTodos,
-        showWeakTodos
+        showWeakTodos, 
+        showImportantTodos
     }
 })()
 
