@@ -5,7 +5,7 @@ import deleteIcon from "./assets/delete.svg";
 import doneIcon from "./assets/check.svg";
 import infoIcon from "./assets/information.svg";
 import dialogBuilder from "./dialogBuilder.js";
-import { isToday } from "date-fns";
+import { isToday, differenceInDays } from "date-fns";
 
 const domHandler = (function () {
 
@@ -71,6 +71,26 @@ const domHandler = (function () {
             })
         })            
     }
+
+    const showWeakTodos = () => {
+        const projectNameDiv = document.querySelector('.project-name');
+        projectNameDiv.textContent = 'This Weak';
+
+        const projects = storage.getProjects();
+        const todosListContainer = document.querySelector('.todos-list');
+        todosListContainer.innerHTML = '';
+
+        const currentDate = new Date();
+        projects.forEach((project) => {
+            let myProject = storage.getProjectByName(project.name);
+            let todosList = myProject ? myProject.todosList : [];
+            todosList.forEach((todos) => {
+                if (Math.abs(differenceInDays(currentDate, todos.dueDate)) <= 7) {
+                    todosListContainer.appendChild(domBuilder.createTodosDiv(myProject, todos));
+                }
+            })
+        })
+    }
         
     const changeProjectsNumber = (length) => {
         const projectTitle = document.querySelector('.projects .head .title');
@@ -90,7 +110,8 @@ const domHandler = (function () {
         showProjects,
         showTodosList,
         showAllTodos,
-        showTodayTodos
+        showTodayTodos,
+        showWeakTodos
     }
 })()
 
