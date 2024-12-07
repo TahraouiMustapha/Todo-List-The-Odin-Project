@@ -111,6 +111,25 @@ const domHandler = (function () {
         })
     }
 
+    const showCompletedTodos = () => {
+        const projectNameDiv = document.querySelector('.project-name');
+        projectNameDiv.textContent = 'Completed Tasks';
+
+        const projects = storage.getProjects();
+        const todosListContainer = document.querySelector('.todos-list');
+        todosListContainer.innerHTML = '';
+
+        projects.forEach((project) => {
+            let myProject = storage.getProjectByName(project.name);
+            let todosList = myProject ? myProject.todosList : [];
+            todosList.forEach((todos) => {
+                if (todos.achievement) {
+                    todosListContainer.appendChild(domBuilder.createTodosDiv(myProject, todos));
+                }
+            })
+        })
+    } 
+
     const changeProjectsNumber = (length) => {
         const projectTitle = document.querySelector('.projects .head .title');
         projectTitle.innerHTML = '';
@@ -131,7 +150,8 @@ const domHandler = (function () {
         showAllTodos,
         showTodayTodos,
         showWeakTodos, 
-        showImportantTodos
+        showImportantTodos,
+        showCompletedTodos
     }
 })()
 

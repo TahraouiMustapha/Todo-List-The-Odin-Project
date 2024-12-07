@@ -24,6 +24,9 @@ weakTodosBtn.addEventListener('click', ()=> domHandler.showWeakTodos());
 const importantTodosBtn = document.querySelector('#importantTodosBtn');
 importantTodosBtn.addEventListener('click', ()=> domHandler.showImportantTodos());
 
+const completedTodosBtn = document.querySelector('#completedTodosBtn');
+completedTodosBtn.addEventListener('click', ()=> domHandler.showCompletedTodos())
+
 // add click event to appear dialog of adding Project 
 const addNewProject = document.querySelector('#add-new-project-btn');
 addNewProject.addEventListener('click', () => {
